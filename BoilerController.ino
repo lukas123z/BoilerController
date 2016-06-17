@@ -1,13 +1,16 @@
+#include "EEPROMManager.h"
+#include "WiFiManager.h"
+
+
 void setup()
 {
-
-  /* add setup code here */
+	EEPROM.begin(512);
 
 }
 
 void loop()
 {
 
-  /* add main program code here */
+  
 
 }

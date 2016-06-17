@@ -88,4 +88,8 @@ extern "C" void __cxa_pure_virtual() {;}
 #undef cli
 #define cli()
 #include <BoilerController.ino>
+#include <EEPROMManager.cpp>
+#include <EEPROMManager.h>
+#include <WiFiManager.cpp>
+#include <WiFiManager.h>
 #endif
