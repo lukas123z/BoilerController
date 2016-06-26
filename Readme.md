@@ -4,4 +4,4 @@
 
 This project is written in Visual Studio 2015 with vMicro add-on.
 
-If you want set your own data (like ssid, ip etc.) you must change Definitions.h file
+If you want set your own ssid, ip etc. you must change Definitions.h file

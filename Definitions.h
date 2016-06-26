@@ -8,3 +8,6 @@
 #define DNS 8,8,8,8
 #define SERVER_IP 172,16,3,1
 #define SERVER_PORT 56789
+#define MAX_SECURITY_TEMP 60
+#define ONE_WIRE_BUS 2
+#define RELAY_BUS 3

@@ -91,6 +91,10 @@ extern "C" void __cxa_pure_virtual() {;}
 #include <Definitions.h>
 #include <EEPROMManager.cpp>
 #include <EEPROMManager.h>
+#include <RelayManager.cpp>
+#include <RelayManager.h>
+#include <TCPClient.cpp>
+#include <TCPClient.h>
 #include <WiFiManager.cpp>
 #include <WiFiManager.h>
 #endif
