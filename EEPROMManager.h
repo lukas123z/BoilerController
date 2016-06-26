@@ -10,7 +10,7 @@
 	#include "WProgram.h"
 #endif
 
-#include <EEPROM.h>
+#include <EEPROM/EEPROM.h>
 #include <IPAddress.h>
 
 class EEPROMManager

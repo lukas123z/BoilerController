@@ -88,6 +88,7 @@ extern "C" void __cxa_pure_virtual() {;}
 #define PSTR(string_literal) ((const PROGMEM char *)(string_literal))")
 
 #include <BoilerController.ino>
+#include <Definitions.h>
 #include <EEPROMManager.cpp>
 #include <EEPROMManager.h>
 #include <WiFiManager.cpp>
