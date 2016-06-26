@@ -3,27 +3,27 @@
 //--------------------get--------------------------
 IPAddress EEPROMManager::getOwnIP()
 {
-	return readIPAdress(0);
+	return readIPAddress(0);
 }
 
 IPAddress EEPROMManager::getGateway()
 {
-	return readIPAdress(4);
+	return readIPAddress(4);
 }
 
 IPAddress EEPROMManager::getSubnetMask()
 {
-	return readIPAdress(8);
+	return readIPAddress(8);
 }
 
 IPAddress EEPROMManager::getDNS()
 {
-	return readIPAdress(12);
+	return readIPAddress(12);
 }
 
 IPAddress EEPROMManager::getServerIP()
 {
-	return readIPAdress(16);
+	return readIPAddress(16);
 }
 
 String EEPROMManager::getSSID()
@@ -36,32 +36,40 @@ String EEPROMManager::getPassword()
 	return readString(42, 41);
 }
 
+word EEPROMManager::getServerPort()
+{
+	word port;
+	EEPROM.get(62, port);
+	return port;
+}
+
+
 //------------------------set-------------------------
 
 
 void EEPROMManager::setOwnIP(IPAddress ip)
 {
-	writeIPAdress(0, ip);
+	writeIPAddress(0, ip);
 }
 
 void EEPROMManager::setGateway(IPAddress ip)
 {
-	writeIPAdress(4, ip);
+	writeIPAddress(4, ip);
 }
 
 void EEPROMManager::setSubnetMask(IPAddress ip)
 {
-	writeIPAdress(8, ip);
+	writeIPAddress(8, ip);
 }
 
 void EEPROMManager::setDNS(IPAddress ip)
 {
-	writeIPAdress(12, ip);
+	writeIPAddress(12, ip);
 }
 
 void EEPROMManager::setServerIP(IPAddress ip)
 {
-	writeIPAdress(16, ip);
+	writeIPAddress(16, ip);
 }
 
 void EEPROMManager::setSSID(String ssid)
@@ -74,11 +82,16 @@ void EEPROMManager::setPassword(String password)
 	writeString(42, 41, password);
 }
 
+void EEPROMManager::setServerPort(word port)
+{
+	EEPROM.put(62, port);
+}
 
 
 
 
-IPAddress EEPROMManager::readIPAdress(byte firstBytePosition)
+
+IPAddress EEPROMManager::readIPAddress(byte firstBytePosition)
 {
 	return IPAddress(EEPROM.read(firstBytePosition), EEPROM.read(firstBytePosition + 1),
 		EEPROM.read(firstBytePosition + 2), EEPROM.read(firstBytePosition + 3));
@@ -95,7 +108,7 @@ String EEPROMManager::readString(byte firstBytePosition, byte lengthBytePosition
 	return text;
 }
 
-void EEPROMManager::writeIPAdress(byte firstBytePosition, IPAddress ip)
+void EEPROMManager::writeIPAddress(byte firstBytePosition, IPAddress ip)
 {
 	for (byte i = 0; i >= 4; ++i)
 	{

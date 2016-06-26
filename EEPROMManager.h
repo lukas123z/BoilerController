@@ -1,3 +1,7 @@
+//EEPROM doesn't work correctly on my ESP, so i don't know if EEPROMManager work or not
+
+
+
 #pragma once
 
 #if defined(ARDUINO) && ARDUINO >= 100
@@ -6,7 +10,7 @@
 	#include "WProgram.h"
 #endif
 
-#include <EEPROM/EEPROM.h>
+#include <EEPROM.h>
 #include <IPAddress.h>
 
 class EEPROMManager
@@ -19,6 +23,7 @@ public:
 	IPAddress getServerIP();
 	String getSSID();
 	String getPassword();
+	word getServerPort();
 	void setOwnIP(IPAddress ip);
 	void setGateway(IPAddress ip);
 	void setSubnetMask(IPAddress ip);
@@ -26,10 +31,11 @@ public:
 	void setServerIP(IPAddress ip);
 	void setSSID(String ssid);
 	void setPassword(String password);
+	void setServerPort(word port);
 private:
-	IPAddress readIPAdress(byte firstBytePosition);
+	IPAddress readIPAddress(byte firstBytePosition);
 	String readString(byte firstBytePosition, byte lengthBytePosition);
-	void writeIPAdress(byte firstBytePosition, IPAddress ip);
+	void writeIPAddress(byte firstBytePosition, IPAddress ip);
 	void writeString(byte firstBytePosition, byte lengthBytePosition, String text);
 };
 
@@ -44,4 +50,5 @@ Which bytes keeps which infornations
 21-40 ssid
 41 password length(max 20)
 42-61 password
+62-63 server port
 */

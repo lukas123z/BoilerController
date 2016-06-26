@@ -20,42 +20,39 @@
 #define ARDUINO_ARCH_ESP8266
 #define ESP8266
 #define __cplusplus 201103L
+#undef __cplusplus
+#define __cplusplus 201103L
 #define __STDC__
 #define __ARM__
+#define __arm__
 #define __inline__
 #define __asm__(x)
 #define __extension__
 #define __ATTR_PURE__
 #define __ATTR_CONST__
 #define __inline__
-#define __asm__ 
 #define __volatile__
 
-#define __builtin_va_list
-typedef int __gnuc_va_list;
 
-#define __ICCARM__
 #define __ASM
 #define __INLINE
 #define __attribute__(noinline)
 
-#define _STD_BEGIN
-#define EMIT
+//#define _STD_BEGIN
+//#define EMIT
 #define WARNING
 #define _Lockit
 #define __CLR_OR_THIS_CALL
 #define C4005
-
-typedef int uint8_t;
-#define __ARMCC_VERSION 400678
-#define PROGMEM
-#define string_literal
-
-#define prog_void
-#define PGM_VOID_P int
-
-#define _GLIBCXX_CONSTEXPR  ([=] () {int _a = (1), _b = (2); return _a > _b ? _a : _b; }())
-
+//
+//typedef int uint8_t;
+//#define __ARMCC_VERSION 400678
+//#define PROGMEM
+//#define string_literal
+//
+//#define prog_void
+//#define PGM_VOID_P int
+//
 
 typedef int _read;
 typedef int _seek;
@@ -65,28 +62,31 @@ typedef int __cleanup;
 
 #define inline 
 #define __builtin_clz
+#define __builtin_clz
+#define __builtin_clzl
+#define __builtin_clzll
+#define __builtin_labs
+#define __builtin_va_list
+typedef int __gnuc_va_list;
+
+#define __ATOMIC_ACQ_REL
+
 #define __CHAR_BIT__
 #define _EXFUN()
-#define __builtin_labs
-
-//MSVC++ 14.0 _MSC_VER == 1900 (Visual Studio 2015)
-//MSVC++ 12.0 _MSC_VER == 1800 (Visual Studio 2013)
-//MSVC++ 11.0 _MSC_VER == 1700 (Visual Studio 2012)
-//MSVC++ 10.0 _MSC_VER == 1600 (Visual Studio 2010)
-//#if (_MSC_VER == 1600)
-//	#undef __cplusplus
-//#endif
 
 typedef unsigned char byte;
 extern "C" void __cxa_pure_virtual() {;}
 
-
+#include "new"
 
 #include <arduino.h>
 #include <common.h> 
 #include <pins_arduino.h> 
-#undef cli
-#define cli()
+#undef F
+#define F(string_literal) ((const PROGMEM char *)(string_literal))
+#undef PSTR
+#define PSTR(string_literal) ((const PROGMEM char *)(string_literal))")
+
 #include <BoilerController.ino>
 #include <EEPROMManager.cpp>
 #include <EEPROMManager.h>
