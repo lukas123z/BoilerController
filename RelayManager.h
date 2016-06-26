@@ -19,9 +19,7 @@ protected:
 	bool isCooling;
 	void maintain();
 public:
-	void setOff();
-	void setOn();
-	void setMaintaining();
+	void setState(CONTROLLERSTATE _state);
 	void securityCheck();
 	void commit();
 	void setMaxTemperature(int _temperature);

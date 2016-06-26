@@ -140,7 +140,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties arduino.upload.port="COM3" />
+      <UserProperties arduino.build.auto_discover_includes="0" arduino.upload.port="COM3" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

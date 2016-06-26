@@ -1,8 +1,10 @@
 #include "RelayManager.h"
 
-RelayManagerClass::RelayManagerClass(float & _temperature): temperature(_temperature), isCooling(false)
+RelayManagerClass::RelayManagerClass(float & _temperature) : temperature(_temperature), isCooling(false), maxTemperature(55)
 {
 	pinMode(RELAY_BUS, OUTPUT);
+	digitalWrite(RELAY_BUS, HIGH);
+	state = CS_OFF;
 }
 
 RelayManagerClass::~RelayManagerClass()
@@ -18,19 +20,11 @@ void RelayManagerClass::maintain()
 	if (isCooling == true && temperature <= maxTemperature - 10) isCooling == false;
 }
 
-void RelayManagerClass::setOff()
-{
-	state = CS_OFF;
-}
 
-void RelayManagerClass::setOn()
-{
-	state = CS_ON;
-}
 
-void RelayManagerClass::setMaintaining()
+void RelayManagerClass::setState(CONTROLLERSTATE _state)
 {
-	state = CS_MAINTAINING;
+	state = _state;
 }
 
 void RelayManagerClass::securityCheck()

@@ -12,17 +12,18 @@
 class TCPClientClass
 {
 protected:
-	float& temperature;
-	RelayManagerClass& relayManager;
-	
+	WiFiClient client;
+	void waitForResponse();
+public:	
 	void connect();
-	void sendTemperature();
-	void sendState();
-	void sendMaxTemperature();
-public:
-	void communicate();
+	void sendStartMessage();
+	void sendTemperature(float temp);
+	CONTROLLERSTATE requestState();
+	int requestMaxTemperature();
+	void disconnect();
 
-	TCPClientClass(float& _temperature, RelayManagerClass& _RelayManager);
+
+	TCPClientClass();
 	~TCPClientClass();
 };
 

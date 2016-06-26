@@ -1,6 +1,6 @@
-#include "RelayManager.h"
 #include <OneWire/OneWire.h>
 #include <DallasTemperature/DallasTemperature.h>
+#include "RelayManager.h"
 #include "TCPClient.h"
 #include "WiFiManager.h"
 #include "Definitions.h"
@@ -10,9 +10,10 @@ DallasTemperature thermometer(&oneWire);
 float temperature;
 WiFiManagerClass WifiManager;
 RelayManagerClass RelayManager(temperature);
-TCPClientClass TCPClient(temperature, RelayManager);
+TCPClientClass TCPClient;
 void setup()
 {
+	Serial.begin(115200);
 	thermometer.begin();
 	WifiManager.connect();
 }
@@ -20,13 +21,23 @@ void setup()
 void loop()
 {
 	temperature = getTemperature();
-	WifiManager.checkConnection();
-  
-
-	
-	
+	try 
+	{
+		WifiManager.checkConnection();
+		TCPClient.connect();
+		TCPClient.sendStartMessage();
+		TCPClient.sendTemperature(temperature);
+		RelayManager.setMaxTemperature(TCPClient.requestMaxTemperature());
+		RelayManager.setState(TCPClient.requestState());
+		TCPClient.disconnect();
+	}
+	catch (String e)
+	{
+		Serial.println(e);
+	}
 	RelayManager.securityCheck();
 	RelayManager.commit();
+	delay(5000);
 }
 
 float getTemperature()
