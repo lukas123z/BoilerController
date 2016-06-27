@@ -12,8 +12,8 @@
 class WiFiManagerClass
 {
 public:
-	void connect();
-	void checkConnection();
+	bool connect();
+	bool checkConnection();
 
 };
 

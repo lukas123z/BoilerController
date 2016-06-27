@@ -13,9 +13,9 @@ class TCPClientClass
 {
 protected:
 	WiFiClient client;
-	void waitForResponse();
+	bool waitForResponse();
 public:	
-	void connect();
+	bool connect();
 	void sendStartMessage();
 	void sendTemperature(float temp);
 	CONTROLLERSTATE requestState();

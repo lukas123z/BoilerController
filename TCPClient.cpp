@@ -1,6 +1,6 @@
 #include "TCPClient.h"
 
-void TCPClientClass::waitForResponse()
+bool TCPClientClass::waitForResponse()
 {
 	unsigned long timeout = millis();
 	while (client.available() == 0)
@@ -8,14 +8,15 @@ void TCPClientClass::waitForResponse()
 		if (millis() - timeout > 5000)
 		{
 			client.stop();
-			throw String("Client timeout");
+			return false;
 		}
+		return true;
 	}
 }
 
-void TCPClientClass::connect()
+bool TCPClientClass::connect()
 {
-	if (client.connect(IPAddress(SERVER_IP), SERVER_PORT) == false) throw String("connection to server error");
+	return (client.connect(IPAddress(SERVER_IP), SERVER_PORT));
 }
 
 void TCPClientClass::sendStartMessage()
