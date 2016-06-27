@@ -21,20 +21,18 @@ void setup()
 void loop()
 {
 	temperature = getTemperature();
-	try 
-	{
-		WifiManager.checkConnection();
-		TCPClient.connect();
+
+	if (WifiManager.checkConnection() && TCPClient.connect())
+	{ 
 		TCPClient.sendStartMessage();
 		TCPClient.sendTemperature(temperature);
 		RelayManager.setMaxTemperature(TCPClient.requestMaxTemperature());
 		RelayManager.setState(TCPClient.requestState());
 		TCPClient.disconnect();
 	}
-	catch (String e)
-	{
-		Serial.println(e);
-	}
+		
+	
+	
 	RelayManager.securityCheck();
 	RelayManager.commit();
 	delay(5000);

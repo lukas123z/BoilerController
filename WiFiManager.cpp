@@ -1,6 +1,6 @@
 #include "WiFiManager.h"
 
-void WiFiManagerClass::connect()
+bool WiFiManagerClass::connect()
 {
 	WiFi.config(IPAddress(OWNIP), IPAddress(GATEWAY), IPAddress(SUBNET_MASK), IPAddress(DNS));
 	WiFi.begin(SSID, PASSWORD);
@@ -9,12 +9,17 @@ void WiFiManagerClass::connect()
 	while (WiFi.status() != WL_CONNECTED) 
 	{
 		delay(500);
-		if (millis() - timeout > 10000) throw String("wifi connection error");
+		if (millis() - timeout > 10000) return false;
 	}
+	return true;
 }
 
-void WiFiManagerClass::checkConnection()
+bool WiFiManagerClass::checkConnection()
 {
-	if (WiFi.status() != WL_CONNECTED) connect();
-
+	if (WiFi.status() != WL_CONNECTED)
+	{
+		if (connect()) return true;
+		else return false;
+	}
+	return true;
 }
