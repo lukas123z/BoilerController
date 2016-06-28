@@ -8,6 +8,7 @@ bool TCPClientClass::waitForResponse()
 		if (millis() - timeout > 5000)
 		{
 			client.stop();
+			Serial.println("server doesn't response");
 			return false;
 		}
 		return true;
@@ -21,6 +22,8 @@ void TCPClientClass::translateResponeToData()
 	{
 		parameter = client.readStringUntil('=');
 		value = client.readStringUntil('\r');
+		Serial.println(parameter);
+		Serial.println(value);
 
 		if (parameter == "maxtemperature")
 		{
@@ -28,8 +31,8 @@ void TCPClientClass::translateResponeToData()
 		}
 		else if (parameter = "changestate")
 		{
-			if (value == "NOT") { isStateChanged = false; break; }
-			else isStateChanged = true;
+			if (value == "NOT") { isStateChangedFromServer = false; break; }
+			else isStateChangedFromServer = true;
 
 			if (value == "ON") stateFromServer = CS_ON;
 			if (value == "OFF") stateFromServer = CS_OFF;
@@ -45,7 +48,7 @@ int TCPClientClass::getMaxTemperatureFromServer() const
 
 CONTROLLERSTATE TCPClientClass::getStateFromServer()
 {
-	isStateChanged = false;
+	isStateChangedFromServer = false;
 	return stateFromServer;
 }
 
@@ -74,6 +77,7 @@ void TCPClientClass::disconnect()
 {
 	client.flush();
 	client.stop();
+	Serial.println("Client disconnected");
 }
 
 TCPClientClass::TCPClientClass()

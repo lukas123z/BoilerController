@@ -28,7 +28,7 @@ void loop()
 		TCPClient.waitForResponse();
 		TCPClient.translateResponeToData();
 		RelayManager.setMaxTemperature(TCPClient.getMaxTemperatureFromServer());
-		if (TCPClient.isStateChanged == true) RelayManager.setState(TCPClient.getStateFromServer());
+		if (TCPClient.isStateChangedFromServer == true) RelayManager.setState(TCPClient.getStateFromServer());
 		TCPClient.disconnect();
 	}
 	

@@ -21,7 +21,7 @@ public:
 	void sendMessage(float temperatre, CONTROLLERSTATE state);
 	bool waitForResponse();
 	void translateResponeToData();
-	bool isStateChanged;
+	bool isStateChangedFromServer;
 	int getMaxTemperatureFromServer() const;
 	CONTROLLERSTATE getStateFromServer();
 	void disconnect();

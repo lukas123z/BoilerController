@@ -3,6 +3,7 @@
 RelayManagerClass::RelayManagerClass(float & _temperature) : temperature(_temperature), isCooling(false), maxTemperature(55)
 {
 	pinMode(RELAY_PIN, OUTPUT);
+	pinMode(DIODE_PIN, OUTPUT);
 	digitalWrite(RELAY_PIN, HIGH);
 	state = CS_OFF;
 }
@@ -14,6 +15,7 @@ RelayManagerClass::~RelayManagerClass()
 void RelayManagerClass::maintain()
 {
 	if (state != CS_MAINTAINING) return;
+	Serial.println("I'm maintaining");
 	if (temperature >= maxTemperature) isCooling = true;
 	else if (isCooling == false) powerOn();
 	if (isCooling == true && temperature > maxTemperature - 10) powerOff();
@@ -46,9 +48,12 @@ void RelayManagerClass::securityCheck()
 
 void RelayManagerClass::commit()
 {
-	if (state == CS_MAINTAINING) maintain;
-	else if (state == CS_ON) powerOn();
-	else if (state == CS_OFF) powerOff();
+	switch (state)
+	{
+	case CS_MAINTAINING: maintain(); break;
+	case CS_OFF: powerOff(); break;
+	case CS_ON: powerOn(); break;
+	}
 }
 
 void RelayManagerClass::setMaxTemperature(int _temperature)
