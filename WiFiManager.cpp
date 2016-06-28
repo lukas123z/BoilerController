@@ -3,7 +3,7 @@
 bool WiFiManagerClass::connect()
 {
 	WiFi.config(IPAddress(OWNIP), IPAddress(GATEWAY), IPAddress(SUBNET_MASK), IPAddress(DNS));
-	WiFi.begin(SSID, PASSWORD);
+	WiFi.begin(NETWORK_SSID, PASSWORD);
 
 	unsigned long timeout = millis();
 	while (WiFi.status() != WL_CONNECTED) 

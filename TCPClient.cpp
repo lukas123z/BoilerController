@@ -80,7 +80,7 @@ void TCPClientClass::disconnect()
 	Serial.println("Client disconnected");
 }
 
-TCPClientClass::TCPClientClass()
+TCPClientClass::TCPClientClass() : maxTemperatureFromServer(55), client()
 {
 }
 

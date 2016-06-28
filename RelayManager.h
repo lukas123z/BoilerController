@@ -4,6 +4,7 @@
 #else
 	#include "WProgram.h"
 #endif
+#include "Definitions.h"
 
 enum CONTROLLERSTATE
 {

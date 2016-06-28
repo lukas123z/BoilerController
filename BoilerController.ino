@@ -23,11 +23,12 @@ void setup()
 void loop()
 {
 	temperature = getTemperature();
-	if (Switch.wasClicked())
+	if (Switch.wasClicked()) RelayManager.switchOnOff();
+	Switch.saveActualState();
 
 	if (WifiManager.checkConnection() && TCPClient.connect())
 	{ 
-		TCPClient.sendMessage(temperature, RelayManager.getState);
+		TCPClient.sendMessage(temperature, RelayManager.getState());
 		TCPClient.waitForResponse();
 		TCPClient.translateResponeToData();
 		RelayManager.setMaxTemperature(TCPClient.getMaxTemperatureFromServer());
