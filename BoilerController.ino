@@ -5,7 +5,7 @@
 #include "WiFiManager.h"
 #include "Definitions.h"
 
-OneWire oneWire(ONE_WIRE_BUS);
+OneWire oneWire(ONE_WIRE_PIN);
 DallasTemperature thermometer(&oneWire);
 float temperature;
 WiFiManagerClass WifiManager;
@@ -24,14 +24,13 @@ void loop()
 
 	if (WifiManager.checkConnection() && TCPClient.connect())
 	{ 
-		TCPClient.sendStartMessage();
-		TCPClient.sendTemperature(temperature);
-		RelayManager.setMaxTemperature(TCPClient.requestMaxTemperature());
-		RelayManager.setState(TCPClient.requestState());
+		TCPClient.sendMessage(temperature, RelayManager.getState);
+		TCPClient.waitForResponse();
+		TCPClient.translateResponeToData();
+		RelayManager.setMaxTemperature(TCPClient.getMaxTemperatureFromServer());
+		if (TCPClient.isStateChanged == true) RelayManager.setState(TCPClient.getStateFromServer());
 		TCPClient.disconnect();
 	}
-		
-	
 	
 	RelayManager.securityCheck();
 	RelayManager.commit();

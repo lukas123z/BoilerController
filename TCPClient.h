@@ -13,13 +13,17 @@ class TCPClientClass
 {
 protected:
 	WiFiClient client;
-	bool waitForResponse();
+	CONTROLLERSTATE stateFromServer;
+	int maxTemperatureFromServer;
+	String controllerstateToString(CONTROLLERSTATE state);
 public:	
 	bool connect();
-	void sendStartMessage();
-	void sendTemperature(float temp);
-	CONTROLLERSTATE requestState();
-	int requestMaxTemperature();
+	void sendMessage(float temperatre, CONTROLLERSTATE state);
+	bool waitForResponse();
+	void translateResponeToData();
+	bool isStateChanged;
+	int getMaxTemperatureFromServer() const;
+	CONTROLLERSTATE getStateFromServer();
 	void disconnect();
 
 

@@ -18,6 +18,8 @@ protected:
 	CONTROLLERSTATE	state;
 	bool isCooling;
 	void maintain();
+	void powerOff();
+	void powerOn();
 public:
 	void setState(CONTROLLERSTATE _state);
 	void securityCheck();

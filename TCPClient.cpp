@@ -14,45 +14,60 @@ bool TCPClientClass::waitForResponse()
 	}
 }
 
+void TCPClientClass::translateResponeToData()
+{
+	String parameter, value;
+	while (client.available())
+	{
+		parameter = client.readStringUntil('=');
+		value = client.readStringUntil('\r');
+
+		if (parameter == "maxtemperature")
+		{
+			maxTemperatureFromServer = value.toInt();
+		}
+		else if (parameter = "changestate")
+		{
+			if (value == "NOT") { isStateChanged = false; break; }
+			else isStateChanged = true;
+
+			if (value == "ON") stateFromServer = CS_ON;
+			if (value == "OFF") stateFromServer = CS_OFF;
+			if (value == "MAINTAINING") stateFromServer = CS_MAINTAINING;
+		}
+	}
+}
+
+int TCPClientClass::getMaxTemperatureFromServer() const
+{
+	return maxTemperatureFromServer;
+}
+
+CONTROLLERSTATE TCPClientClass::getStateFromServer()
+{
+	isStateChanged = false;
+	return stateFromServer;
+}
+
+String TCPClientClass::controllerstateToString(CONTROLLERSTATE state)
+{
+	if (state == CS_ON) return String("ON");
+	if (state == CS_OFF) return String("OFF");
+	if (state == CS_MAINTAINING) return String("MAINTAINING");
+}
+
 bool TCPClientClass::connect()
 {
 	return (client.connect(IPAddress(SERVER_IP), SERVER_PORT));
 }
 
-void TCPClientClass::sendStartMessage()
+void TCPClientClass::sendMessage(float temperature, CONTROLLERSTATE state)
 {
-	client.print("name=BoilerController");
-
-}
-
-void TCPClientClass::sendTemperature(float temp)
-{
-	String message = "temperature=";
-	message += temp;
+	String message;
+	message += "name=BoilerController\r";
+	message += "temperature" + String(temperature) + "\r";
+	message += "state=" + controllerstateToString(state) + "\r";
 	client.print(message);
-}
-
-CONTROLLERSTATE TCPClientClass::requestState()
-{
-	client.print("request=state");
-	waitForResponse();
-	String info = client.readStringUntil('=');
-	String state = client.readString;
-	client.flush();
-	if (state == "CS_OFF") return CS_OFF;
-	if (state == "CS_ON") return CS_ON;
-	if (state == "CS_MAINTAINING") return CS_MAINTAINING;
-
-}
-
-int TCPClientClass::requestMaxTemperature()
-{
-	client.print("request=maxtemperature");
-	waitForResponse();
-	String info = client.readStringUntil('=');
-	String maxTemp = client.readString;
-	client.flush();
-	return maxTemp.toInt;
 }
 
 void TCPClientClass::disconnect()

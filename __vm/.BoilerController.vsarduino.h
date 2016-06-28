@@ -30,7 +30,6 @@
 #define __extension__
 #define __ATTR_PURE__
 #define __ATTR_CONST__
-#define __inline__
 #define __volatile__
 
 
@@ -60,8 +59,8 @@ typedef int _write;
 typedef int _close;
 typedef int __cleanup;
 
-#define inline 
-#define __builtin_clz
+//#define inline 
+
 #define __builtin_clz
 #define __builtin_clzl
 #define __builtin_clzll
@@ -85,7 +84,11 @@ extern "C" void __cxa_pure_virtual() {;}
 #undef F
 #define F(string_literal) ((const PROGMEM char *)(string_literal))
 #undef PSTR
-#define PSTR(string_literal) ((const PROGMEM char *)(string_literal))")
+#define PSTR(string_literal) ((const PROGMEM char *)(string_literal))
+//current vc++ does not understand this syntax so use older arduino example for intellisense
+//todo:move to the new clang/gcc project types.
+#define interrupts() sei()
+#define noInterrupts() cli()
 
 #include <BoilerController.ino>
 #include <Definitions.h>

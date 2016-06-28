@@ -2,8 +2,8 @@
 
 RelayManagerClass::RelayManagerClass(float & _temperature) : temperature(_temperature), isCooling(false), maxTemperature(55)
 {
-	pinMode(RELAY_BUS, OUTPUT);
-	digitalWrite(RELAY_BUS, HIGH);
+	pinMode(RELAY_PIN, OUTPUT);
+	digitalWrite(RELAY_PIN, HIGH);
 	state = CS_OFF;
 }
 
@@ -15,9 +15,19 @@ void RelayManagerClass::maintain()
 {
 	if (state != CS_MAINTAINING) return;
 	if (temperature >= maxTemperature) isCooling = true;
-	else if (isCooling == false) digitalWrite(RELAY_BUS, LOW);
-	if (isCooling == true && temperature > maxTemperature - 10) digitalWrite(RELAY_BUS, HIGH);
+	else if (isCooling == false) powerOn();
+	if (isCooling == true && temperature > maxTemperature - 10) powerOff();
 	if (isCooling == true && temperature <= maxTemperature - 10) isCooling == false;
+}
+
+void RelayManagerClass::powerOff()
+{
+	digitalWrite(RELAY_PIN, HIGH); digitalWrite(DIODE_PIN, LOW);
+}
+
+void RelayManagerClass::powerOn()
+{
+	digitalWrite(RELAY_PIN, LOW); digitalWrite(DIODE_PIN, HIGH);
 }
 
 
@@ -37,8 +47,8 @@ void RelayManagerClass::securityCheck()
 void RelayManagerClass::commit()
 {
 	if (state == CS_MAINTAINING) maintain;
-	else if (state == CS_ON) digitalWrite(RELAY_BUS, LOW);
-	else if (state == CS_OFF) digitalWrite(RELAY_BUS, HIGH);
+	else if (state == CS_ON) powerOn();
+	else if (state == CS_OFF) powerOff();
 }
 
 void RelayManagerClass::setMaxTemperature(int _temperature)
