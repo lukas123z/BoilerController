@@ -12,4 +12,4 @@
 #define ONE_WIRE_PIN 2
 #define RELAY_PIN 4
 #define DIODE_PIN 5
-#define BUTTON_PIN 13
+#define SWITCH_PIN 13

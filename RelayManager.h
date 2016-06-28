@@ -22,6 +22,7 @@ protected:
 	void powerOn();
 public:
 	void setState(CONTROLLERSTATE _state);
+	void switchOnOff();
 	void securityCheck();
 	void commit();
 	void setMaxTemperature(int _temperature);

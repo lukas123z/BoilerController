@@ -125,6 +125,7 @@
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="EEPROMManager.h" />
     <ClInclude Include="RelayManager.h" />
+    <ClInclude Include="Switch.h" />
     <ClInclude Include="TCPClient.h" />
     <ClInclude Include="WiFiManager.h" />
     <ClInclude Include="__vm\.BoilerController.vsarduino.h" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="EEPROMManager.cpp" />
     <ClCompile Include="RelayManager.cpp" />
+    <ClCompile Include="Switch.cpp" />
     <ClCompile Include="TCPClient.cpp" />
     <ClCompile Include="WiFiManager.cpp" />
   </ItemGroup>

@@ -39,9 +39,15 @@ void RelayManagerClass::setState(CONTROLLERSTATE _state)
 	state = _state;
 }
 
+void RelayManagerClass::switchOnOff()
+{
+	if (state == CS_OFF) state = CS_ON;
+	else if (state == CS_ON) state = CS_OFF;
+}
+
 void RelayManagerClass::securityCheck()
 {
-	if (temperature == 85.0f) return; //sensor shows 85 deegres when he has error
+	if (temperature == 85.0f) return; //sensor shows 85 deegres when he has an error
 	if (state != CS_MAINTAINING && temperature >= maxTemperature) state = CS_OFF;
 	if (temperature >= MAX_SECURITY_TEMP) state = CS_OFF;
 }
