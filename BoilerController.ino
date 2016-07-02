@@ -6,6 +6,9 @@
 #include "Definitions.h"
 #include "Switch.h"
 
+
+//TODO poprawa seriali, sprawdzenie switha i termometru
+
 OneWire oneWire(ONE_WIRE_PIN);
 DallasTemperature thermometer(&oneWire);
 float temperature;
@@ -18,6 +21,7 @@ void setup()
 	Serial.begin(115200);
 	thermometer.begin();
 	WifiManager.connect();
+	Switch.saveActualState();
 }
 
 void loop()
