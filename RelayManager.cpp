@@ -15,11 +15,10 @@ RelayManagerClass::~RelayManagerClass()
 void RelayManagerClass::maintain()
 {
 	if (state != CS_MAINTAINING) return;
-	Serial.println("I'm maintaining");
 	if (temperature >= maxTemperature) isCooling = true;
 	else if (isCooling == false) powerOn();
 	if (isCooling == true && temperature > maxTemperature - 10) powerOff();
-	if (isCooling == true && temperature <= maxTemperature - 10) isCooling == false;
+	if (isCooling == true && temperature <= maxTemperature - 10) isCooling = false;
 }
 
 void RelayManagerClass::powerOff()

@@ -1,13 +1,11 @@
-#include <OneWire/OneWire.h>
-#include <DallasTemperature/DallasTemperature.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 #include "RelayManager.h"
 #include "TCPClient.h"
 #include "WiFiManager.h"
 #include "Definitions.h"
 #include "Switch.h"
 
-
-//TODO poprawa seriali, sprawdzenie switha i termometru
 
 OneWire oneWire(ONE_WIRE_PIN);
 DallasTemperature thermometer(&oneWire);
@@ -18,7 +16,6 @@ TCPClientClass TCPClient;
 SwitchClass Switch;
 void setup()
 {
-	Serial.begin(115200);
 	thermometer.begin();
 	WifiManager.connect();
 	Switch.saveActualState();

@@ -8,7 +8,6 @@ bool TCPClientClass::waitForResponse()
 		if (millis() - timeout > 5000)
 		{
 			client.stop();
-			Serial.println("server doesn't response");
 			return false;
 		}
 		return true;
@@ -22,9 +21,6 @@ void TCPClientClass::translateResponeToData()
 	{
 		parameter = client.readStringUntil('=');
 		value = client.readStringUntil('\r');
-		Serial.println(parameter);
-		Serial.println(value);
-
 		if (parameter == "maxtemperature")
 		{
 			maxTemperatureFromServer = value.toInt();
@@ -77,7 +73,6 @@ void TCPClientClass::disconnect()
 {
 	client.flush();
 	client.stop();
-	Serial.println("Client disconnected");
 }
 
 TCPClientClass::TCPClientClass() : maxTemperatureFromServer(55), client()

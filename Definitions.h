@@ -9,7 +9,7 @@
 #define SERVER_IP 172,16,3,1
 #define SERVER_PORT 56789
 #define MAX_SECURITY_TEMP 60
-#define ONE_WIRE_PIN 2
+#define ONE_WIRE_PIN 13
 #define RELAY_PIN 4
 #define DIODE_PIN 5
-#define SWITCH_PIN 13
+#define SWITCH_PIN 14
