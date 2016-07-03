@@ -1,5 +1,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <WiFiClient.h>
+#include <ESP8266WiFi.h>
 #include "RelayManager.h"
 #include "TCPClient.h"
 #include "WiFiManager.h"

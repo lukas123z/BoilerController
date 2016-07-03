@@ -6,7 +6,7 @@
 	#include "WProgram.h"
 #endif
 
-#include <ESP8266WiFi\src\WiFiClient.h>
+#include <WiFiClient.h>
 #include "RelayManager.h"
 
 class TCPClientClass
