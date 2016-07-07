@@ -49,6 +49,7 @@ void RelayManagerClass::securityCheck()
 	if (temperature == 85.0f) return; //sensor shows 85 deegres when he has an error
 	if (state != CS_MAINTAINING && temperature >= maxTemperature) state = CS_OFF;
 	if (temperature >= MAX_SECURITY_TEMP) state = CS_OFF;
+	if (temperature == -127) state = CS_OFF; //thermometer disconeccted
 }
 
 void RelayManagerClass::commit()
